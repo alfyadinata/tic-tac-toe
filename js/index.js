@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const draw = () => {
         app.innerHTML = '';
-        app.style.setProperty('--scale', scale );
+        app.style.setProperty('--scale', scale);
 
         const cellSize = `${app.clientHeight / cells.length * 100}px`;
         const totalCell = scale * scale;
