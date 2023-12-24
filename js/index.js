@@ -22,17 +22,46 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    const isWinnerByRow = () => {
+        for (let index = 0; index < cells.length; index++) {
+            const startCell = index * scale;
+            const endCell = startCell + scale;
+            const cellInRow = cells.slice(startCell, endCell);
+            const result = cellInRow.every((cell) => cell === currentPlayer);
+
+            if (result && cellInRow.length > 0) {
+                return result;
+            }
+        }
+
+        return false;
+    }
+
+    const isWinnerByDiagonal = () => {
+        const firstDiagonal = [];
+        const secondDiagonal = [];
+
+        for (let index = 0; index < cells.length; index++) {
+            firstDiagonal.push(cells[index * scale + 1]);
+            secondDiagonal.push(cells[index * scale + (scale - 1 - index)]);
+        }
+
+        const isWinByFirstDiagonal = firstDiagonal.every((cell) => cell === currentPlayer);
+        const isWinBySecondDiagonal = secondDiagonal.every((cell) => cell === currentPlayer);
+        const result = isWinByFirstDiagonal || isWinBySecondDiagonal || false;
+ 
+        return result;
+    }
+
 
     const isHasAWinner = () => {
-        const diagonalGapRightToLeft = scale - 2;
-        const diagonalGapLeftToRight = scale;
-
-        for (let index = 1; index < scale; index++) {
-            const cell = cells[index];
-        }
+        console.log("isWinnerByRow()", isWinnerByRow());
+        console.log("isWinnerByDiagonal", isWinnerByDiagonal());
+        console.log("cells", cells)
+        return isWinnerByRow() || isWinnerByDiagonal() || false;
     };
 
-    const isDraw = cells.every((cell) => cell !== '');
+    const isDraw = () => cells.every((cell) => cell !== '');
 
     const onClickCell = (event) => {
         const { index } = event.target.dataset;
@@ -42,16 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             draw();
 
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-
-            if (!isHasAWinner()) {
-                return 'congrats';
+            if (isHasAWinner()) {
+                console.log("done", cells);
             }
 
             if (isDraw()) {
                 alert('draw');
             }
 
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         }
     }
 
