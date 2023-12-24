@@ -100,6 +100,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const isDraw = () => cells.every((cell) => cell !== '');
 
+    const resultDialog = ({title, text, icon}) => {
+        return Swal.fire({
+            title: title,
+            text: text,
+            icon: icon,
+            confirmButtonText: "Restart ?",
+        }).then(() => {
+            window.location.reload();
+        });
+    }
+
     const onClickCell = (event) => {
         const { index } = event.target.dataset;
 
@@ -109,26 +120,21 @@ document.addEventListener('DOMContentLoaded', function () {
             draw();
 
             if (isHasAWinner()) {
-                Swal.fire({
-                    title: "Good Job !",
-                    text: `${currentPlayer} is win the game`,
+                return resultDialog({
+                    title: 'Good Job !',
+                    text: `${currentPlayer} is win the game.`,
                     icon: 'success',
-                    confirmButtonText: "Restart ?",
-                }).then(() => {
-                    window.location.reload();
-                });
+                })
             } else if (isDraw()) {
-                Swal.fire({
+                return resultDialog({
                     title: "Draw !",
                     text: 'No one is win the game',
                     icon: 'info',
-                    confirmButtonText: "Restart ?",
-                }).then(() => {
-                    window.location.reload();
-                });
+                })
             } else {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
+
             generatePlayer();
         }
     }
