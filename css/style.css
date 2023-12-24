@@ -4,6 +4,71 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.wrapper {
+    text-align: center;
+    background-color: #34495e;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 40px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+form, .info {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ecf0f1;
+}
+
+input, button {
+    font-size: 16px;
+    color: #ecf0f1;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 80px;
+    text-align: center;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    background-color: #2c3e50;
+}
+
+input:hover,
+input:focus {
+    border-color: #2980b9;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.current-player, .game-status {
+    font-size: 18px;
+    color: #ecf0f1;
 }
 
 .container {
@@ -11,7 +76,7 @@ body {
     grid-template-columns: repeat(var(--scale), 1fr);
     grid-template-rows: repeat(var(--scale), 1fr);
     gap: 5px;
-    --cell-size: 50px;
+    --cell-size: 60px;
 }
 
 .cell {
@@ -21,11 +86,75 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    border: 1px solid #ccc;
+    border: 1px solid #3498db;
     cursor: pointer;
-    background: navajowhite;
+    background: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .cell:hover {
-    background-color: #f0f0f0;
+    background-color: #34495e;
+}
+
+.cell.X {
+    color: #e74c3c;
+}
+
+.cell.O {
+    color: #2ecc71;
+}
+
+.dot-collision {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #3498db;
+    display: inline-block;
+}
+
+.dot-collision::before, .dot-collision::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+.dot-collision::before {
+    left: -10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #3498db;
+    animation: dot-collision-before 2s infinite ease-in;
+}
+.dot-collision::after {
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: #3498db;
+    animation: dot-collision-after 2s infinite ease-in;
+    animation-delay: 1s;
+}
+
+@keyframes dot-collision-before {
+    0%, 50%, 75%, 100% {
+    transform: translateX(0);
+    }
+    25% {
+    transform: translateX(-15px);
+    }
+}
+@keyframes dot-collision-after {
+    0%, 50%, 75%, 100% {
+    transform: translateX(0);
+    }
+    25% {
+    transform: translateX(15px);
+    }
 }

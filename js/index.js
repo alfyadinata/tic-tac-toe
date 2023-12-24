@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let scale = 3;
     let cells = scale * scale;
 
+    const generatePlayer = () => document.getElementById('player').innerText = currentPlayer;
+
     const handleStart = () => {
         scale = document.getElementById('scale').value;
 
@@ -13,9 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('form').style.display = 'none';
         document.getElementById('app').style.setProperty('--scale', scale);
         document.getElementById('app').style.display = 'grid';
+        document.getElementById('info').style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
 
         cells = Array.from({ length: scale * scale }, () => '');
 
+        generatePlayer();
         draw();
     }
 
@@ -104,14 +109,27 @@ document.addEventListener('DOMContentLoaded', function () {
             draw();
 
             if (isHasAWinner()) {
-                alert(`${currentPlayer} is win the game`);
-                window.location.reload();
+                Swal.fire({
+                    title: "Good Job !",
+                    text: `${currentPlayer} is win the game`,
+                    icon: 'success',
+                    confirmButtonText: "Restart ?",
+                }).then(() => {
+                    window.location.reload();
+                });
             } else if (isDraw()) {
-                alert('draw');
+                Swal.fire({
+                    title: "Draw !",
+                    text: 'No one is win the game',
+                    icon: 'info',
+                    confirmButtonText: "Restart ?",
+                }).then(() => {
+                    window.location.reload();
+                });
             } else {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
-
+            generatePlayer();
         }
     }
 
