@@ -7,7 +7,12 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div class="container" id="app">
+    <form id="form">
+        <label>Scale (min: 3)</label>
+        <input type="number" min="3" id="scale">
+        <button type="button" id="start">Start</button>
+    </form>
+    <div class="container" id="app" style="display: none;">
     </div>
     <script src="./js/index.js"></script>
 </body>
