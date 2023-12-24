@@ -9,6 +9,12 @@ A simple web-based Tic Tac Toe game with adjustable scale.
 - [Features](#features)
 - [Usage](#usage)
 
+## Demo
+
+<a href="https://tic-tac-toe-green-eight.vercel.app/" target="_blank" rel="noopener noreferrer">
+    https://tic-tac-toe-green-eight.vercel.app/
+</a>
+
 ## Display
 <img width="1440" alt="image" src="https://github.com/alfyadinata/tic-tac-toe/assets/42163566/f93e4765-2255-4fc8-ac39-55c6a8048be2">
 
