@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const app = document.getElementById('app');
     let currentPlayer = 'X';
     let scale = 3;
-    let cells = 9;
+    let cells = scale * scale;
 
     const handleStart = () => {
+        scale = document.getElementById('scale').value;
+
         if (scale < 3) {
             return alert('Minimum scale is 3');
         }
@@ -12,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('app').style.setProperty('--scale', scale);
         document.getElementById('app').style.display = 'grid';
 
-        scale = document.getElementById('scale').value;
         cells = Array.from({ length: scale * scale }, () => '');
 
         draw();
@@ -40,12 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const isWinnerByHorizontal = () => {
-        for (let index = 0; index < cells.length; index++) {
+        for (let index = 0; index < scale; index++) {
             const startCell = index * scale;
-            const endCell = startCell + scale;
+            const endCell = Number(startCell) + Number(scale);
             const cellInRow = cells.slice(startCell, endCell);
             const result = cellInRow.every((cell) => cell === currentPlayer);
-
             if (result && cellInRow.length > 0) {
                 return result;
             }
