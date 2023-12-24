@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
     const app = document.getElementById('app');
     let currentPlayer = 'X';
     let scale = 3;
@@ -6,15 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const handleStart = () => {
         if (scale < 3) {
-            return alert("Minimum scale is 3");
+            return alert('Minimum scale is 3');
         }
         document.getElementById('form').style.display = 'none';
         document.getElementById('app').style.setProperty('--scale', scale);
         document.getElementById('app').style.display = 'grid';
 
         scale = document.getElementById('scale').value;
-        cells = Array.from({ length: scale * scale }, () => "");
-        console.log("uhuhu", cells)
+        cells = Array.from({ length: scale * scale }, () => '');
+
+        draw();
     }
 
     document.getElementById('start').addEventListener('click', handleStart);
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    const isWinnerByRow = () => {
+    const isWinnerByHorizontal = () => {
         for (let index = 0; index < cells.length; index++) {
             const startCell = index * scale;
             const endCell = startCell + scale;
@@ -57,20 +58,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const leftToRight = [];
         const rightToLeft = [];
         for (let index = 0; index < scale; index++) {
-            if (index > 0) {
-                console.log('scalee', scale)
-                console.log('apa', index * scale + 1);
-            }
-            leftToRight.push(index === 0 ? cells[0] : cells[index * scale + 1]);
+            leftToRight.push(cells[index * scale + index]);
             rightToLeft.push(cells[index * scale + (scale - 1 - index)]);
         }
 
         const isWinByleftToRight = leftToRight.every((cell) => cell === currentPlayer);
         const isWinByrightToLeft = rightToLeft.every((cell) => cell === currentPlayer);
-
-        console.log('cell', cells)
-        console.log('leftToRight',leftToRight)
-        console.log('rightToLeft', rightToLeft)
 
         const result = isWinByleftToRight || isWinByrightToLeft || false;
  
@@ -97,10 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const isHasAWinner = () => {
-        console.log('isWinnerByRow', isWinnerByRow())
-        console.log('isWinnerByVertical', isWinnerByVertical())
-        console.log('isWinnerByDiagonal', isWinnerByDiagonal())
-        return isWinnerByRow() || isWinnerByDiagonal() || isWinnerByVertical() || false;
+        return isWinnerByHorizontal() || isWinnerByDiagonal() || isWinnerByVertical() || false;
     };
 
     const isDraw = () => cells.every((cell) => cell !== '');
