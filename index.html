@@ -12,21 +12,21 @@
     <div class="wrapper">
         <h1>Tic Tac Toe</h1>
         <form id="form">
-            <label>Scale (min: 3)</label>
-            <input type="number" value="3"  min="3" id="scale" required>
+            <label>Scale (between: 3-100)</label>
+            <input type="number" value="3" id="scale" required>
             <button type="button" id="start">Start</button>
         </form>
         <div class="info">
             <h4 class="current-player" id="info" style="display: none;">
                 Current player : <strong id="player"></strong>
             </h4>
-            <p class="game-status" id="loading">
-                <span class="dot-collision">
-                </span>
-            </p>
         </div>
         <div class="container" id="app" style="display: none;">
         </div>
+        <p class="game-status">
+            <span class="dot-collision">
+            </span>
+        </p>
     </div>
     <script src="./js/index.js"></script>
 </body>

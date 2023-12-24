@@ -9,14 +9,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const handleStart = () => {
         scale = document.getElementById('scale').value;
 
-        if (scale < 3) {
-            return alert('Minimum scale is 3');
+        if (scale < 3 || scale > 100) {
+            return resultDialog({
+                title: "Oops !",
+                text: 'The maximum and minimum scale is between 3-100.',
+                icon: 'error',
+            });
         }
         document.getElementById('form').style.display = 'none';
         document.getElementById('app').style.setProperty('--scale', scale);
         document.getElementById('app').style.display = 'grid';
         document.getElementById('info').style.display = 'block';
-        document.getElementById('loading').style.display = 'none';
 
         cells = Array.from({ length: scale * scale }, () => '');
 
@@ -29,17 +32,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const draw = () => {
         app.innerHTML = '';
-        app.style.setProperty('--scale', scale);
+        app.style.setProperty('--scale', scale );
 
+        const cellSize = `${app.clientHeight / cells.length * 100}px`;
         const totalCell = scale * scale;
         
         for (let index = 0; index < totalCell; index++) {
             const newCell = document.createElement('div');
-
             newCell.classList.add('cell');
             newCell.dataset.index = index;
             newCell.textContent = cells[index];
             newCell.addEventListener('click', onClickCell);
+            newCell.style.width = cellSize;
+            newCell.style.height = cellSize;
 
             app.appendChild(newCell);
         }
@@ -124,13 +129,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: 'Good Job !',
                     text: `${currentPlayer} is win the game.`,
                     icon: 'success',
-                })
+                });
             } else if (isDraw()) {
                 return resultDialog({
                     title: "Draw !",
                     text: 'No one is win the game',
                     icon: 'info',
-                })
+                });
             } else {
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
